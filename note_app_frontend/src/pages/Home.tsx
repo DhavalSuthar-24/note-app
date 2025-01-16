@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,14 +13,19 @@ const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [notes, setNotes] = useState<Note[]>([]);
 
-  const { data, error, isLoading } = trpc.note.getAll.useQuery({ page:1 });
+  const { data, error, isLoading , refetch} = trpc.note.getAll.useQuery({ page:1 });
+
+  useEffect(() => {
+    if (data) setNotes(data);
+  }, [data]);
 
   if (isLoading) return <p>Loading notes...</p>;
 
   if (error) return <p>Error: {error.message}</p>;
 
-  const filteredNotes = data?.filter((note: Note) => {
+  const filteredNotes = notes?.filter((note: Note) => {
     const matchesQuery =
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       note.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -76,7 +81,7 @@ const Home: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredNotes && filteredNotes.length > 0 ? (
           filteredNotes.map((note: Note) => (
-            <NoteCard key={note.id} note={note}/>
+            <NoteCard key={note.id} note={note} refetch={refetch}/>
           ))
         ) : (
           <div className="col-span-full flex justify-center items-center py-16 text-center">
@@ -93,7 +98,7 @@ const Home: React.FC = () => {
         )}
       </div>
 
-      <AddModel isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <AddModel isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} refetch={refetch}/>
     </div>
   );
 };

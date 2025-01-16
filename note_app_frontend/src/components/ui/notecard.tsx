@@ -8,8 +8,7 @@ import DetailsModal from "./detailsmodal";
 import DeleteModal from "./deletemodal";
 import { NoteCardProps } from "@/interface/common";
 
-
-const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ note, refetch }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState<boolean>(false);
@@ -60,7 +59,10 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
                 <div className="flex items-start gap-2">
                   <h3 className="font-medium">{note.title}</h3>
                 </div>
-                <p className="text-sm text-gray-500"> {truncateText(note.description, 20)}</p>
+                <p className="text-sm text-gray-500">
+                  {" "}
+                  {truncateText(note.description, 20)}
+                </p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -91,7 +93,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
             </div>
           </div>
           <div className="absolute bottom-4 right-4 text-sm text-gray-400">
-            {/* {note.createdAt.toLocaleLowerCase()} */}
           </div>
         </CardContent>
       </Card>
@@ -101,6 +102,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
           noteToEdit={note}
           isModalOpen={isEditModalOpen}
           setIsModalOpen={setIsEditModalOpen}
+          refetch={refetch}
         />
       )}
 
@@ -109,6 +111,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
           noteToDelete={note}
           isModalOpen={isDeleteModalOpen}
           setIsModalOpen={setIsDeleteModalOpen}
+          refetch={refetch}
         />
       )}
 

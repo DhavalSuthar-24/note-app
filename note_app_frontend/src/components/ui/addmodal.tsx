@@ -18,13 +18,14 @@ import {
 import { trpc } from "../../utils/trpcClient";
 import { AddModalProps } from "@/interface/common";
 
-const AddModal: React.FC<AddModalProps> = ({ isModalOpen, setIsModalOpen }) => {
+const AddModal: React.FC<AddModalProps> = ({ isModalOpen, setIsModalOpen, refetch }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
   const createNoteMutation = trpc.note.create.useMutation({
     onSuccess: () => {
+      refetch()
       setIsModalOpen(false);
       setTitle("");
       setDescription("");
@@ -67,7 +68,7 @@ const AddModal: React.FC<AddModalProps> = ({ isModalOpen, setIsModalOpen }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter the title"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             />
           </div>
 
@@ -81,7 +82,7 @@ const AddModal: React.FC<AddModalProps> = ({ isModalOpen, setIsModalOpen }) => {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter the description"
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             ></textarea>
           </div>
 
@@ -90,7 +91,7 @@ const AddModal: React.FC<AddModalProps> = ({ isModalOpen, setIsModalOpen }) => {
               Category
             </label>
             <Select value={category} onValueChange={(value) => setCategory(value)}>
-              <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+              <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg">
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>

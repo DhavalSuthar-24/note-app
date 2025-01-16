@@ -22,6 +22,7 @@ const EditModal: React.FC<EditModalProps> = ({
   isModalOpen,
   setIsModalOpen,
   noteToEdit,
+  refetch
 }) => {
   const [title, setTitle] = useState<string>(noteToEdit.title);
   const [description, setDescription] = useState<string>(noteToEdit.description);
@@ -29,6 +30,7 @@ const EditModal: React.FC<EditModalProps> = ({
 
   const updateNoteMutation = trpc.note.update.useMutation({
     onSuccess: () => {
+      refetch();
       setIsModalOpen(false);
       setTitle("");
       setDescription("");
@@ -82,7 +84,7 @@ const EditModal: React.FC<EditModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter the title"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
             />
           </div>
           <div className="space-y-2">
@@ -97,7 +99,7 @@ const EditModal: React.FC<EditModalProps> = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter the description"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-28"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none h-28"
             ></textarea>
           </div>
           <div className="space-y-2">

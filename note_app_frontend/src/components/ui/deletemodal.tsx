@@ -15,10 +15,11 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   isModalOpen,
   setIsModalOpen,
   noteToDelete,
+  refetch
 }) => {
   const deleteNoteMutation = trpc.note.delete.useMutation({
     onSuccess: () => {
-      console.log(`Note with ID ${noteToDelete.id} deleted successfully.`);
+      refetch();
       setIsModalOpen(false);
     },
     onError: (error) => {
@@ -57,7 +58,6 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             className="bg-red-500 hover:bg-red-600 text-white"
           >
             Delete
-            {/* {deleteNoteMutation.isLoading ? "Deleting..." : "Delete"} */}
           </Button>
         </DialogFooter>
       </DialogContent>
