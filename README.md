@@ -4,7 +4,7 @@ This project is a full-stack note-taking application with separate frontend and 
 
 ## Project Structure
 - **note-app_frontend**: Contains the frontend code for the application.
-- **backend**: Contains the backend code for the application.
+- **note-app_backend**: Contains the backend code for the application.
 
 ---
 
