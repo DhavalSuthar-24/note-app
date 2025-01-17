@@ -1,5 +1,5 @@
-import { initTRPC } from '@trpc/server';
-import { noteRouter } from './noteRoute';
+import { initTRPC } from "@trpc/server";
+import { noteRouter } from "./noteRoute";
 
 const t = initTRPC.create();
 

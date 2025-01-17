@@ -1,18 +1,14 @@
 import { z } from "zod";
 
-
-
 // =====types=====
-export type Note ={
-    id:number;
-    title:string;
-    description:string;
-    category:string;
-    createdAt:Date;
-    updatedAt?:Date;
-}
-
-
+export type Note = {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  createdAt: Date;
+  updatedAt?: Date;
+};
 
 //======zod schema======
 export const createNoteInput = z.object({

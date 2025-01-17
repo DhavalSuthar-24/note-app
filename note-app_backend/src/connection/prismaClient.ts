@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 async function initializeDatabase() {
@@ -12,5 +12,5 @@ async function initializeDatabase() {
     "updatedAt" DATETIME DEFAULT CURRENT_TIMESTAMP
   );`;
 }
-  
-  export { prisma, initializeDatabase };
+
+export { prisma, initializeDatabase };
