@@ -23,7 +23,7 @@ This project is a full-stack note-taking application with separate frontend and 
    npm run dev
    ```
 
-The frontend will be available at `http://localhost:3000` (or the port specified in your project).
+The frontend will be available at `http://localhost:5173` (or the port specified in your project).
 
 ---
 
